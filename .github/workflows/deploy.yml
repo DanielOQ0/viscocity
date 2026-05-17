@@ -27,8 +27,13 @@ jobs:
             git fetch --all
             git reset --hard origin/main
 
+            # Cargar variables de entorno de producción para Docker Compose
+            cat > .env <<'EOF'
+            ${{ secrets.ENV_PRODUCTION }}
+            EOF
+
             # Levantar stack desde la carpeta docker/
-            docker compose -f docker/docker-compose.yml up -d --build --remove-orphans
+            docker compose --env-file .env -f docker/docker-compose.yml up -d --build --remove-orphans
 
             # Eliminar imágenes huérfanas para liberar espacio
             docker image prune -f

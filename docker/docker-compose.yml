@@ -7,6 +7,8 @@ services:
       context: ..
       dockerfile: docker/Dockerfile
     image: ${IMAGE_NAME:-viscocity-landing}:latest
+    env_file:
+      - ../.env.production
     ports:
       - '${PORT:-3001}:80'
     restart: always
