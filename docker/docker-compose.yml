@@ -11,8 +11,14 @@ services:
       - ../.env.production
     ports:
       - '${PORT:-3001}:80'
+    networks:
+      - pos-network
     restart: always
     deploy:
       resources:
         limits:
           memory: 128M
+
+networks:
+  pos-network:
+    external: true
