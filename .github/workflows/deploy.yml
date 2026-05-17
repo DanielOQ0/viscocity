@@ -1,0 +1,34 @@
+name: Deploy Viscocity Landing to VPS
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ENV_PRODUCTION
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Remote deploy via SSH
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            set -ex
+            cd ${{ secrets.APP_DIR }}
+            git fetch --all
+            git reset --hard origin/main
+
+            # Levantar stack desde la carpeta docker/
+            docker compose -f docker/docker-compose.yml up -d --build --remove-orphans
+
+            # Eliminar imágenes huérfanas para liberar espacio
+            docker image prune -f

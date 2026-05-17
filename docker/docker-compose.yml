@@ -1,0 +1,14 @@
+services:
+  app:
+    container_name: viscocity-landing
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: viscocity-landing:latest
+    ports:
+      - '3001:80'
+    restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 128M

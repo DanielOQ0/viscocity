@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Fuente Milker (local) ───────────────────────────────────── */
+@font-face {
+  font-family: 'Milker';
+  src: url('/fonts/Milker.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Variables CSS ────────────────────────────────────────────── */
+:root {
+  --color-yellow: #fdc738;
+  --color-orange: #E7971c;
+  --color-purple: #261536;
+}
+
+/* ── Base ─────────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #261536;
+  overflow-x: hidden;
+}
+
+/* ── Utilidades custom ────────────────────────────────────────── */
+.text-gradient {
+  background: linear-gradient(135deg, #fdc738, #E7971c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bg-gradient-brand {
+  background: linear-gradient(135deg, #fdc738, #E7971c);
+}
+
+/* ── Scrollbar ────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #261536;
+}
+::-webkit-scrollbar-thumb {
+  background: #E7971c;
+  border-radius: 3px;
+}
