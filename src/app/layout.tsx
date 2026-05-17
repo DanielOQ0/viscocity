@@ -12,6 +12,11 @@ export const metadata: Metadata = {
   title: 'Viscocity — Granizados, Sodas & Smoothies con Actitud',
   description:
     'En Viscocity servimos flow en vaso. Granizados, sodas y smoothies con sabor urbano. Únete al parche.',
+  icons: {
+    icon: '/images/logos/fondoetiquetacoc.png',
+    shortcut: '/images/logos/fondoetiquetacoc.png',
+    apple: '/images/logos/fondoetiquetacoc.png',
+  },
   keywords: ['viscocity', 'granizados', 'sodas', 'smoothies', 'bebidas', 'colombia'],
   openGraph: {
     title: 'Viscocity — Granizados, Sodas & Smoothies con Actitud',

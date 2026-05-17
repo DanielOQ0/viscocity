@@ -1,7 +1,19 @@
+"use client"
+
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { Button } from '@/components/atoms/Button'
 
 export function Hero() {
+  const [isAtTop, setIsAtTop] = useState(true)
+
+  useEffect(() => {
+    const onScroll = () => setIsAtTop(window.scrollY <= 0)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   return (
     <section
       id="inicio"
@@ -96,7 +108,11 @@ export function Hero() {
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-white/30 animate-bounce">
+      <div
+        className={`absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-white/30 animate-bounce transition-opacity duration-200 ${
+          isAtTop ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        }`}
+      >
         <span className="text-xs font-montserrat tracking-widest uppercase">Scroll</span>
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
