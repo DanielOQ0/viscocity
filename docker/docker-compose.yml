@@ -1,10 +1,12 @@
+name: ${COMPOSE_PROJECT_NAME:-viscocity-landing}
+
 services:
   app:
-    container_name: viscocity-landing
+    container_name: ${CONTAINER_NAME:-viscocity-landing}
     build:
       context: ..
       dockerfile: docker/Dockerfile
-    image: viscocity-landing:latest
+    image: ${IMAGE_NAME:-viscocity-landing}:latest
     ports:
       - '${PORT:-3001}:80'
     restart: always
