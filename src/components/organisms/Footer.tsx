@@ -58,9 +58,14 @@ export function Footer() {
         </div>
 
         <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row justify-between items-center gap-3">
-          <p className="text-white/30 text-sm">
-            © {year} Viscocity SAS. Todos los derechos reservados.
-          </p>
+          <div className="flex flex-col items-center sm:items-start gap-1">
+            <p className="text-white/30 text-sm">
+              © {year} VISCOCITY S.A.S. Todos los derechos reservados.
+            </p>
+            <p className="text-white/20 text-xs">
+              NIT: 902022383-2 &nbsp;·&nbsp; Cúcuta, Norte de Santander, Colombia
+            </p>
+          </div>
           <p className="text-white/20 text-xs">
             Bebe, ríe y repite.
           </p>
