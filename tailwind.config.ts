@@ -6,6 +6,14 @@ const config: Config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  // Los productos del American Fest traen su gradiente (bg_color) desde
+  // Directus como clases from-*/to-*, que el JIT no puede ver en el código.
+  safelist: [
+    {
+      pattern:
+        /^(from|via|to)-(red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(300|400|500|600|700|800)$/,
+    },
+  ],
   theme: {
     extend: {
       colors: {
@@ -14,6 +22,12 @@ const config: Config = {
           orange: '#E7971c',
           purple: '#261536',
           'purple-mid': '#3a2356',
+        },
+        af: {
+          dark: '#0e0816',
+          card: '#1a1026',
+          fire: '#ff4d2e',
+          blue: '#4f7df9',
         },
       },
       fontFamily: {
