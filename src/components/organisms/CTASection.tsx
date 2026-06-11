@@ -1,4 +1,7 @@
+"use client"
+
 import { Button } from '@/components/atoms/Button'
+import { usePageData } from '@/lib/directus/context'
 
 const WhatsAppIcon = () => (
   <svg className="w-5 h-5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -7,33 +10,40 @@ const WhatsAppIcon = () => (
 )
 
 export function CTASection() {
+  const { cta } = usePageData()
+
   return (
     <section className="relative py-28 overflow-hidden">
-      {/* Gradient background */}
       <div className="absolute inset-0 bg-gradient-to-r from-brand-yellow to-brand-orange" aria-hidden="true" />
-
-      {/* Decorative blobs */}
       <div aria-hidden="true" className="absolute top-0 left-0 w-72 h-72 bg-white/15 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
       <div aria-hidden="true" className="absolute bottom-0 right-0 w-96 h-96 bg-brand-purple/20 rounded-full blur-3xl translate-x-1/3 translate-y-1/3 pointer-events-none" />
 
-      <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="font-milker text-5xl lg:text-6xl text-brand-purple mb-4 leading-tight">
-          ¿Listo para el parche?
-        </h2>
-        <p className="text-brand-purple/75 text-xl mb-10 font-montserrat">
-          Pide tu bebida favorita y únete a la city.
-        </p>
-        <Button
-          href="https://wa.me/573180165736"
-          external
-          variant="dark"
-          size="lg"
-          className="shadow-2xl shadow-brand-purple/40"
-        >
-          <WhatsAppIcon />
-          Pedir por WhatsApp
-        </Button>
-      </div>
+      {cta ? (
+        <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="font-milker text-5xl lg:text-6xl text-brand-purple mb-4 leading-tight">
+            {cta.headline as string}
+          </h2>
+          <p className="text-brand-purple/75 text-xl mb-10 font-montserrat">
+            {cta.subtext as string}
+          </p>
+          <Button
+            href={cta.button_url as string}
+            external
+            variant="dark"
+            size="lg"
+            className="shadow-2xl shadow-brand-purple/40"
+          >
+            <WhatsAppIcon />
+            {cta.button_text as string}
+          </Button>
+        </div>
+      ) : (
+        <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center animate-pulse">
+          <div className="h-14 w-96 mx-auto bg-brand-purple/20 rounded-lg mb-4" />
+          <div className="h-6 w-64 mx-auto bg-brand-purple/20 rounded-lg mb-10" />
+          <div className="h-14 w-56 mx-auto bg-brand-purple/20 rounded-full" />
+        </div>
+      )}
     </section>
   )
 }

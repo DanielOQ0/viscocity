@@ -1,3 +1,6 @@
+'use client'
+
+import { DataProvider } from '@/lib/directus/context'
 import { Navbar } from '@/components/organisms/Navbar'
 import { Hero } from '@/components/organisms/Hero'
 import { BrandStory } from '@/components/organisms/BrandStory'
@@ -8,7 +11,7 @@ import { Footer } from '@/components/organisms/Footer'
 
 export function LandingTemplate() {
   return (
-    <>
+    <DataProvider>
       <Navbar />
       <main>
         <Hero />
@@ -18,6 +21,6 @@ export function LandingTemplate() {
         <CTASection />
       </main>
       <Footer />
-    </>
+    </DataProvider>
   )
 }
