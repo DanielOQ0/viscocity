@@ -26,6 +26,7 @@ const config: Config = {
       animation: {
         'float': 'float 6s ease-in-out infinite',
         'float-delayed': 'float 6s ease-in-out 2s infinite',
+        'float-slow': 'float 8s ease-in-out infinite',
         'pulse-slow': 'pulse 3s ease-in-out infinite',
       },
       keyframes: {

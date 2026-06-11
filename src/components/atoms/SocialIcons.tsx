@@ -10,11 +10,17 @@ const WhatsAppIcon = () => (
   </svg>
 )
 
-export function SocialLinks({ className = '' }: { className?: string }) {
+interface SocialLinksProps {
+  className?: string
+  instagramUrl?: string
+  whatsappUrl?: string
+}
+
+export function SocialLinks({ className = '', instagramUrl = 'https://www.instagram.com/viiscocity', whatsappUrl = 'https://wa.me/573180165736' }: SocialLinksProps) {
   return (
     <div className={`flex items-center gap-3 ${className}`}>
       <a
-        href="https://www.instagram.com/viiscocity"
+        href={instagramUrl}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Instagram de Viscocity"
@@ -23,7 +29,7 @@ export function SocialLinks({ className = '' }: { className?: string }) {
         <InstagramIcon />
       </a>
       <a
-        href="https://wa.me/573180165736"
+        href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="WhatsApp de Viscocity"

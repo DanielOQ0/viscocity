@@ -432,3 +432,4 @@ FodyWeavers.xsd
 .agents/
 .next/
 .venv/
+opencode.json
