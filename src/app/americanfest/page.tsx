@@ -14,6 +14,7 @@ import { FestivalInfo } from '@/components/americanfest/FestivalInfo'
 import { BrandSection } from '@/components/americanfest/BrandSection'
 import { FestFooter } from '@/components/americanfest/FestFooter'
 import type { CarouselProduct } from '@/components/americanfest/ProductCarousel'
+import type { ProductSize } from '@/lib/directus/types'
 
 interface FestData {
   settings: Record<string, unknown> | null
@@ -32,6 +33,7 @@ function toCarouselProducts(
     category: item.category as string | undefined,
     description: item.description as string | undefined,
     price: item.price as string | undefined,
+    sizes: (item.sizes as ProductSize[] | null) ?? undefined,
     image: getAssetUrl(item[imageField] as string | null),
     bgColor: item.bg_color as string | undefined,
   }))

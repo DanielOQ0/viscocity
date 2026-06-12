@@ -5,6 +5,8 @@ import Image from 'next/image'
 import { gsap } from 'gsap'
 import { Draggable } from 'gsap/Draggable'
 import { InertiaPlugin } from 'gsap/InertiaPlugin'
+import type { ProductSize } from '@/lib/directus/types'
+import { SizeChips, type SizeChipsTone } from '@/components/atoms/SizeChips'
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(Draggable, InertiaPlugin)
@@ -15,7 +17,9 @@ export interface CarouselProduct {
   name: string
   category?: string
   description?: string
+  /** precio único (legacy); se usa solo si `sizes` está vacío */
   price?: string
+  sizes?: ProductSize[]
   image: string | null
   /** gradiente tailwind (from-… to-…) que viene de Directus */
   bgColor?: string
@@ -33,17 +37,19 @@ interface ProductCarouselProps {
 
 const themes: Record<
   CarouselTheme,
-  { chip: string; accent: string; fallbackGradient: string }
+  { chip: string; accent: string; fallbackGradient: string; sizeTone: SizeChipsTone }
 > = {
   viscocity: {
     chip: 'bg-brand-yellow text-brand-purple',
     accent: 'text-brand-yellow',
     fallbackGradient: 'from-brand-orange to-brand-purple-mid',
+    sizeTone: 'brand',
   },
   ja: {
     chip: 'bg-emerald-500 text-white',
     accent: 'text-emerald-400',
     fallbackGradient: 'from-emerald-500 to-emerald-900',
+    sizeTone: 'ja',
   },
 }
 
@@ -180,6 +186,14 @@ function CarouselTrack({ products, theme, speed }: CarouselTrackProps) {
         // el progreso por encima y onThrowComplete vuelve a confirmar
         onRelease: resume,
       })[0]
+
+      // Draggable marca el viewport con touch-action "manipulation" inline
+      // porque su target es el proxy sin dimensiones (lo considera
+      // no-scrolleable), y eso le cede el swipe horizontal al navegador en
+      // táctil: el drag nunca arranca. Restauramos "pan-y": el scroll
+      // vertical de la página sigue siendo nativo y el horizontal queda
+      // para el Draggable.
+      viewport.style.touchAction = 'pan-y'
     }, viewport)
 
     return () => {
@@ -268,8 +282,12 @@ function CarouselTrack({ products, theme, speed }: CarouselTrackProps) {
                 {/* nombre + precio; la descripción se despliega sin mover el layout */}
                 <div className="relative mt-5 w-full text-center">
                   <h4 className="font-milker text-xl leading-tight text-white">{product.name}</h4>
-                  {product.price && (
-                    <span className={`mt-1 block font-milker text-lg ${t.accent}`}>{product.price}</span>
+                  {product.sizes && product.sizes.length > 0 ? (
+                    <SizeChips sizes={product.sizes} tone={t.sizeTone} className="mt-2 justify-center" />
+                  ) : (
+                    product.price && (
+                      <span className={`mt-1 block font-milker text-lg ${t.accent}`}>{product.price}</span>
+                    )
                   )}
                   <div
                     className={`absolute left-1/2 top-full z-30 w-64 -translate-x-1/2 pt-2 transition-all duration-500 ${

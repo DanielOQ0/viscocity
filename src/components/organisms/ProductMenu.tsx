@@ -6,7 +6,9 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { usePageData } from '@/lib/directus/context'
 import { getAssetUrl } from '@/lib/directus/client'
+import type { ProductSize } from '@/lib/directus/types'
 import { Badge } from '@/components/atoms/Badge'
+import { SizeChips } from '@/components/atoms/SizeChips'
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger)
@@ -15,9 +17,10 @@ if (typeof window !== 'undefined') {
 type Filter = 'all' | string
 
 export function ProductMenu() {
-  const { products, categories } = usePageData()
+  const { products, categories, loading } = usePageData()
   const [active, setActive] = useState<Filter>('all')
   const root = useRef<HTMLElement>(null)
+  const firstReveal = useRef(true)
 
   const filtered = active === 'all'
     ? products
@@ -35,7 +38,7 @@ export function ProductMenu() {
         duration: 0.8,
         ease: 'power3.out',
         stagger: 0.1,
-        scrollTrigger: { trigger: el, start: 'top 80%' },
+        scrollTrigger: { trigger: el, start: 'top 80%', once: true },
       })
     }, el)
 
@@ -49,15 +52,22 @@ export function ProductMenu() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     const ctx = gsap.context(() => {
-      gsap.from('[data-menu-card]', {
+      const vars: gsap.TweenVars = {
         y: 32,
         opacity: 0,
         scale: 0.96,
         duration: 0.6,
         ease: 'power3.out',
         stagger: 0.08,
-        scrollTrigger: { trigger: '[data-menu-grid]', start: 'top 88%' },
-      })
+        clearProps: 'opacity,transform',
+      }
+      if (firstReveal.current) {
+        // primera aparición: espera a que el grid entre al viewport
+        firstReveal.current = false
+        vars.scrollTrigger = { trigger: '[data-menu-grid]', start: 'top 88%', once: true }
+      }
+      // cambios de filtro: anima de inmediato (el grid ya está a la vista)
+      gsap.from('[data-menu-card]', vars)
     }, el)
 
     return () => ctx.revert()
@@ -102,11 +112,19 @@ export function ProductMenu() {
           </div>
         </div>
 
+        {loading && (
+          <div className="flex flex-col items-center justify-center gap-4 py-24" role="status" aria-live="polite">
+            <span className="h-12 w-12 animate-spin rounded-full border-4 border-white/15 border-t-brand-yellow" aria-hidden="true" />
+            <p className="text-white/50 text-sm font-montserrat">Cargando el menú…</p>
+          </div>
+        )}
+
         <div data-menu-grid className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map((product) => {
             const bgColor = (product.bg_color as string) || ''
             const isGradient = bgColor.includes('from-')
             const imgUrl = getAssetUrl(product.character_image as string)
+            const sizes = (product.sizes as ProductSize[] | null) ?? []
 
             return (
               <div
@@ -137,10 +155,14 @@ export function ProductMenu() {
                 <div className="p-5 bg-black/30">
                   <div className="flex items-center justify-between gap-2">
                     <Badge category={((product.category as string) || '').toLowerCase()} />
-                    {(product.price as string) && (
-                      <span className="font-milker text-lg text-brand-yellow">
-                        {product.price as string}
-                      </span>
+                    {sizes.length > 0 ? (
+                      <SizeChips sizes={sizes} className="justify-end" />
+                    ) : (
+                      (product.price as string) && (
+                        <span className="font-milker text-lg text-brand-yellow">
+                          {product.price as string}
+                        </span>
+                      )
                     )}
                   </div>
                   <h3 className="font-milker text-xl text-white mt-2">{product.name as string}</h3>

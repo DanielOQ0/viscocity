@@ -32,7 +32,8 @@ export function CTASection() {
         duration: 0.9,
         ease: 'power3.out',
         stagger: 0.15,
-        scrollTrigger: { trigger: el, start: 'top 75%' },
+        clearProps: 'opacity,transform',
+        scrollTrigger: { trigger: el, start: 'top 75%', once: true },
       })
     }, el)
 

@@ -12,7 +12,7 @@ if (typeof window !== 'undefined') {
 }
 
 export function Gallery() {
-  const { characters } = usePageData()
+  const { characters, loading } = usePageData()
   const root = useRef<HTMLElement>(null)
 
   useLayoutEffect(() => {
@@ -27,7 +27,7 @@ export function Gallery() {
         duration: 0.8,
         ease: 'power3.out',
         stagger: 0.1,
-        scrollTrigger: { trigger: el, start: 'top 80%' },
+        scrollTrigger: { trigger: el, start: 'top 80%', once: true },
       })
       gsap.from('[data-gallery-card]', {
         y: 32,
@@ -36,7 +36,8 @@ export function Gallery() {
         duration: 0.7,
         ease: 'back.out(1.4)',
         stagger: 0.07,
-        scrollTrigger: { trigger: '[data-gallery-grid]', start: 'top 85%' },
+        clearProps: 'opacity,transform',
+        scrollTrigger: { trigger: '[data-gallery-grid]', start: 'top 85%', once: true },
       })
     }, el)
 
@@ -55,6 +56,13 @@ export function Gallery() {
             <span className="text-gradient">Personajes</span>
           </h2>
         </div>
+
+        {loading && (
+          <div className="flex flex-col items-center justify-center gap-4 py-16" role="status" aria-live="polite">
+            <span className="h-12 w-12 animate-spin rounded-full border-4 border-white/15 border-t-brand-orange" aria-hidden="true" />
+            <p className="text-white/50 text-sm font-montserrat">Cargando la crew…</p>
+          </div>
+        )}
 
         <div data-gallery-grid className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
           {characters.map((char) => {

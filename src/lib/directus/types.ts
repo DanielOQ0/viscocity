@@ -51,6 +51,16 @@ export interface LandingNavLink {
   status: string
 }
 
+// Tamaño/presentación de un producto (repeater `sizes` en Directus)
+export interface ProductSize {
+  /** cantidad, p. ej. "10" */
+  value: string
+  /** unidad, p. ej. "oz" */
+  unit: string
+  /** precio para este tamaño, p. ej. "$10.000" */
+  price: string
+}
+
 // Menú unificado: misma colección que usa /americanfest
 // (americanfest_viscocity_products)
 export interface MenuProduct {
@@ -61,7 +71,9 @@ export interface MenuProduct {
   character_image: string | null
   /** hex (#1e1e2e) o gradiente tailwind (from-… to-…) */
   bg_color: string
+  /** precio único (legacy); se usa solo si `sizes` está vacío */
   price: string | null
+  sizes: ProductSize[] | null
   sort: number
   status: string
 }

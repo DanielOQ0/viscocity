@@ -9,10 +9,12 @@ import { Gallery } from '@/components/organisms/Gallery'
 import { CTASection } from '@/components/organisms/CTASection'
 import { Footer } from '@/components/organisms/Footer'
 import { EventAnnouncement } from '@/components/organisms/EventAnnouncement'
+import { ScrollRefresher } from '@/components/shared/ScrollRefresher'
 
 export function LandingTemplate() {
   return (
     <DataProvider>
+      <ScrollRefresher />
       <Navbar />
       <main>
         <Hero />

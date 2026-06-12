@@ -28,7 +28,8 @@ export function BrandStory() {
         duration: 0.8,
         ease: 'power3.out',
         stagger: 0.12,
-        scrollTrigger: { trigger: el, start: 'top 75%' },
+        clearProps: 'opacity,transform',
+        scrollTrigger: { trigger: el, start: 'top 75%', once: true },
       })
       gsap.from('[data-story] > *', {
         x: 48,
@@ -36,7 +37,8 @@ export function BrandStory() {
         duration: 0.9,
         ease: 'power3.out',
         stagger: 0.12,
-        scrollTrigger: { trigger: el, start: 'top 75%' },
+        clearProps: 'opacity,transform',
+        scrollTrigger: { trigger: el, start: 'top 75%', once: true },
       })
     }, el)
 
