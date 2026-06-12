@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Reveal } from './animated'
+import { Reveal } from '@/components/shared/animated'
 import { CalendarIcon, MapPinIcon, InstagramIcon } from './icons'
 
 interface FestFooterProps {

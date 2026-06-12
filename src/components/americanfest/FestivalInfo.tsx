@@ -1,4 +1,4 @@
-import { Reveal } from './animated'
+import { Reveal } from '@/components/shared/animated'
 import {
   CalendarIcon,
   MapPinIcon,

@@ -8,6 +8,7 @@ import { ProductMenu } from '@/components/organisms/ProductMenu'
 import { Gallery } from '@/components/organisms/Gallery'
 import { CTASection } from '@/components/organisms/CTASection'
 import { Footer } from '@/components/organisms/Footer'
+import { EventAnnouncement } from '@/components/organisms/EventAnnouncement'
 
 export function LandingTemplate() {
   return (
@@ -21,6 +22,7 @@ export function LandingTemplate() {
         <CTASection />
       </main>
       <Footer />
+      <EventAnnouncement />
     </DataProvider>
   )
 }

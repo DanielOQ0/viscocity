@@ -41,12 +41,14 @@ export async function getNavLinks() {
   return fetchItems<Array<Record<string, unknown>>>('landing_nav_links', 'sort=sort&filter[status][_eq]=published')
 }
 
-export async function getCategories() {
-  return fetchItems<Array<Record<string, unknown>>>('landing_categories', 'sort=sort&filter[status][_eq]=published')
+// Menú unificado: la página principal y /americanfest comparten la misma
+// colección de Directus (americanfest_viscocity_products)
+export async function getProducts() {
+  return fetchItems<Array<Record<string, unknown>>>('americanfest_viscocity_products', 'sort=sort&filter[status][_eq]=published')
 }
 
-export async function getProducts() {
-  return fetchItems<Array<Record<string, unknown>>>('landing_products', 'sort=sort&filter[status][_eq]=published&fields=*,category.id,category.name,category.slug')
+export async function getAnnouncement() {
+  return fetchItems<Record<string, unknown>>('event_announcement')
 }
 
 export async function getCharacters() {

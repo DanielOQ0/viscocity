@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { Reveal } from './animated'
+import { Reveal } from '@/components/shared/animated'
 import { ProductCarousel, type CarouselProduct, type CarouselTheme } from './ProductCarousel'
 
 interface BrandSectionProps {

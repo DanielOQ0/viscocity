@@ -1,4 +1,4 @@
-import { Marquee } from './animated'
+import { Marquee } from '@/components/shared/animated'
 
 interface MarqueeStripProps {
   eventName?: string

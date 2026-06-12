@@ -1,7 +1,14 @@
 "use client"
 
+import { useLayoutEffect, useRef } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Button } from '@/components/atoms/Button'
 import { usePageData } from '@/lib/directus/context'
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger)
+}
 
 const WhatsAppIcon = () => (
   <svg className="w-5 h-5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -11,15 +18,35 @@ const WhatsAppIcon = () => (
 
 export function CTASection() {
   const { cta } = usePageData()
+  const root = useRef<HTMLElement>(null)
+
+  useLayoutEffect(() => {
+    const el = root.current
+    if (!el || !cta) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+    const ctx = gsap.context(() => {
+      gsap.from('[data-cta] > *', {
+        y: 36,
+        opacity: 0,
+        duration: 0.9,
+        ease: 'power3.out',
+        stagger: 0.15,
+        scrollTrigger: { trigger: el, start: 'top 75%' },
+      })
+    }, el)
+
+    return () => ctx.revert()
+  }, [cta])
 
   return (
-    <section className="relative py-28 overflow-hidden">
+    <section ref={root} className="relative py-28 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-r from-brand-yellow to-brand-orange" aria-hidden="true" />
       <div aria-hidden="true" className="absolute top-0 left-0 w-72 h-72 bg-white/15 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
       <div aria-hidden="true" className="absolute bottom-0 right-0 w-96 h-96 bg-brand-purple/20 rounded-full blur-3xl translate-x-1/3 translate-y-1/3 pointer-events-none" />
 
       {cta ? (
-        <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div data-cta className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="font-milker text-5xl lg:text-6xl text-brand-purple mb-4 leading-tight">
             {cta.headline as string}
           </h2>

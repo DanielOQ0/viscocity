@@ -51,23 +51,26 @@ export interface LandingNavLink {
   status: string
 }
 
-export interface LandingCategory {
+// Menú unificado: misma colección que usa /americanfest
+// (americanfest_viscocity_products)
+export interface MenuProduct {
   id: string
   name: string
-  slug: string
   description: string
+  category: string
+  character_image: string | null
+  /** hex (#1e1e2e) o gradiente tailwind (from-… to-…) */
+  bg_color: string
+  price: string | null
   sort: number
+  status: string
 }
 
-export interface LandingProduct {
-  id: string
-  name: string
-  slug: string
-  description: string
-  category: string | LandingCategory
-  character_image: string | null
-  bg_color: string
-  sort: number
+export interface EventAnnouncement {
+  id: number
+  enabled: boolean
+  text: string
+  link: string
 }
 
 export interface LandingCharacter {
