@@ -69,6 +69,21 @@ export function Footer() {
             <p className="text-white/20 text-xs">
               NIT: {nit} &nbsp;·&nbsp; {address}
             </p>
+            <div className="flex flex-wrap gap-x-4 gap-y-1 mt-1">
+              <a
+                href="/politica-de-privacidad"
+                className="text-white/20 text-xs hover:text-brand-yellow transition-colors duration-200"
+              >
+                Política de Privacidad
+              </a>
+              <span className="text-white/10 text-xs">·</span>
+              <a
+                href="/condiciones-de-servicio"
+                className="text-white/20 text-xs hover:text-brand-yellow transition-colors duration-200"
+              >
+                Condiciones del Servicio
+              </a>
+            </div>
           </div>
           <p className="text-white/20 text-xs">
             Bebe, ríe y repite.
