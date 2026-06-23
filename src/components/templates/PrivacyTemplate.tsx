@@ -283,7 +283,7 @@ function PrivacyContent() {
                   <p>
                     Puedes detener las comunicaciones por WhatsApp en cualquier momento respondiendo{' '}
                     <strong className="text-white">STOP</strong> o{' '}
-                    <strong className="text-white">"No quiero recibir más mensajes"</strong> en
+                    <strong className="text-white">&ldquo;No quiero recibir más mensajes&rdquo;</strong> en
                     nuestra conversación. También puedes bloquearnos desde la aplicación de WhatsApp.
                     Procesaremos tu solicitud de inmediato y no volveremos a contactarte salvo que
                     lo solicites nuevamente.
@@ -439,7 +439,7 @@ function PrivacyContent() {
                     {whatsapp}
                   </a>{' '}
                   o a nuestras redes sociales con el mensaje:{' '}
-                  <strong className="text-white">"Solicitud de eliminación de datos personales"</strong>.
+                  <strong className="text-white">&ldquo;Solicitud de eliminación de datos personales&rdquo;</strong>.
                 </Step>
                 <Step n={2}>
                   Incluye tu nombre, información de contacto y una descripción de los datos que
@@ -510,7 +510,7 @@ function PrivacyContent() {
             <p>
               Podemos actualizar esta política periódicamente para reflejar cambios en nuestras
               prácticas de datos o en la legislación aplicable. Cuando lo hagamos, actualizaremos
-              la fecha de "última actualización" visible en la parte superior de esta página. Te
+              la fecha de &ldquo;última actualización&rdquo; visible en la parte superior de esta página. Te
               recomendamos revisarla de vez en cuando.
             </p>
           </Section>

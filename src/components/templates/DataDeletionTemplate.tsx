@@ -117,7 +117,7 @@ function DataDeletionContent() {
                 {instagramHandle}
               </a>
               . Usa el asunto:{' '}
-              <strong className="text-white">"Solicitud de eliminación de datos personales"</strong>.
+              <strong className="text-white">&ldquo;Solicitud de eliminación de datos personales&rdquo;</strong>.
             </Step>
 
             <Step n={2} title="Danos esta información">
